@@ -22,6 +22,12 @@ public class Pillar {
      */
     public boolean registerProject(Project newProject) {
 
+        for(int i=0; i<projects.length; i++){
+            if(projects[i] == null){
+                projects[i] = newProject;
+                return true;
+            }
+        }
         return false;
     }
 
@@ -32,10 +38,23 @@ public class Pillar {
      * 
      */
     public String getProjectList() {
+        //  De cada proyecto se debe mostrar el nombre, identificador y estado.
 
-        String list = "";
+        String list = "\nLISTADO DE PROYECTOS: ";
+
+        for(Project project : projects){
+            if (project != null) {
+                list += "\n" + project.toString();
+            }
+        }
 
         return list;
+    }
+
+
+    @Override
+    public String toString(){
+        return "\n Pilar: "+this.name+getProjectList();
     }
 
 

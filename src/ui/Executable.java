@@ -12,6 +12,7 @@ public class Executable {
 
         control = new Controller();
         reader = new Scanner(System.in);
+        control.precargarPilares();
 
     }
 
@@ -19,6 +20,7 @@ public class Executable {
 
         Executable exe = new Executable();
         exe.menu();
+        
     }
     
     /** 
@@ -66,14 +68,44 @@ public class Executable {
     public void registerProject() {
 
         reader.nextLine();
+        // String id, String name, String description,boolean status
 
+        System.out.println("\n Pilar al que desea asociar el proyecto. (1. Biodiversidad, 2. Agua, 3. Tratamiento Basuras, 4. Tratamiento Energia)");
+        int typePillar = reader.nextInt();
+
+        reader.nextLine();
+
+        if(typePillar == 1 || typePillar == 2 || typePillar == 3 || typePillar == 4){
+
+            System.out.println("\n Digite el id del proyecto.");
+            String id = reader.nextLine();
+
+            System.out.println("\n Escriba el nombre del proyecto.");
+            String name = reader.nextLine();
+
+            System.out.println("\n Escriba una corta descripción del proyecto.");
+            String description = reader.nextLine();
+
+            System.out.println("\n El proyecto está activo? (Si - true / No - false)");
+            boolean status = reader.nextBoolean();
+
+            if(control.registerProjectInPillar(typePillar, id, name, description, status)){
+                System.out.println("\nProyecto guardado exitosamente.");
+            }
+        } else{
+            registerProject();
+        }
+            
     }
 
     /** 
      * Descripcion: Muestra al usuario los Projects registrados en un Pillar 
     */
     public void showProjectsByPillar() {
+        System.out.println("\n Pilar del que desea consultar los proyectos: ");
+        int pilar = reader.nextInt();
 
+        System.out.println(control.queryProjectsByPillar(pilar));
     }
 
 }
